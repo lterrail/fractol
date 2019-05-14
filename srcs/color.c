@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/03 16:33:16 by lterrail          #+#    #+#             */
-/*   Updated: 2018/04/11 17:30:25 by lterrail         ###   ########.fr       */
+/*   Created: 2019/05/14 12:00:52 by lterrail          #+#    #+#             */
+/*   Updated: 2019/05/14 14:23:01 by lterrail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "fractol.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+void		ft_color(t_env *env, int distance, int x, int y)
 {
-	char	*new;
-	int		length;
-	int		i;
-
-	i = 0;
-	if (!s || !f)
-		return (NULL);
-	length = ft_strlen(s);
-	if (!(new = malloc(sizeof(char) * length + 1)))
-		return (NULL);
-	new[length] = '\0';
-	while (s[i])
+	if (distance > 4)
 	{
-		new[i] = f(i, s[i]);
-		i++;
+		env->color->r = 255;
+		env->color->g = 255;
+		env->color->b = 255;
+		draw_pixel(env->img, x, y, env->color);
 	}
-	return (new);
+	else
+	{
+		env->color->r = 100;
+		env->color->g = 100;
+		env->color->b = 100;
+		draw_pixel(env->img, x, y, env->color);
+	}
 }

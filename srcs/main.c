@@ -6,13 +6,20 @@
 /*   By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 05:07:25 by lterrail          #+#    #+#             */
-/*   Updated: 2018/10/26 06:07:47 by lterrail         ###   ########.fr       */
+/*   Updated: 2019/05/14 16:10:03 by lterrail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static t_env	*init_env(char **av, t_color *color)
+static void		ft_exit(t_env *env)
+{
+	free(env->color);
+	free(env);
+	exit(0);
+}
+
+static t_env	*init_env(t_color *color)
 {
 	t_env	*env;
 
@@ -22,33 +29,40 @@ static t_env	*init_env(char **av, t_color *color)
 	color = (t_color *)malloc(sizeof(t_color));
 	if (!color)
 		return (NULL);
+	env->algo = 0;
 	env->color = color;
 	env->color->r = 255;
 	env->color->g = 255;
 	env->color->b = 255;
-	env->name = av[1];
+	env->x1 = -2.1;
+	env->x2 = 0.6;
+	env->y1 = -1.2;
+	env->y2 = 1.2;
+	env->preci = 15;
+	env->zoom = 300;
 	env->mlx = mlx_init();
-	env->win = mlx_new_window(env->mlx, WIDTH, HEIGHT, "SALUT");
 	return (env);
 }
 
-static void		ft_calculate(t_env *env)
+static int		ft_parse_cmd(t_env *env, int ac, char **av)
 {
-	env->img = ft_new_image(env->mlx, WIDTH, HEIGHT);
-	double zr = 0;
-	double zi = 0;
-	double cr = -0.0001;
-	double ci = 0.64;
-	double temp = 0;
-	while (zr * zr + zi * zi <= 4)
+	if (ac != 2)
 	{
-		temp = zr * zr - zi * zi + cr;
-		zi = zr * zi * 2 + ci;
-		zr = temp;
-		printf("%100f, %100f\n", temp, temp);
-		draw_pixel(env->img->img, temp, temp, env->color);
+		ft_putstr("Usage, ./fractol [...]\n\tmandelbrot\n\tjulia\t\n");
+		return (ERROR);
 	}
-	mlx_put_image_to_window(env->mlx, env->win, env->img->img, 0, 0);
+	if (!ft_strcmp(av[1], "mandelbrot"))
+		env->algo = MANDELBROT;
+	else if (!ft_strcmp(av[1], "julia"))
+		env->algo = JULIA;
+	else
+	{
+		ft_putstr("Usage: ./fractol [...]\n\tmandelbrot\n\tjulia\t\n");
+		return (ERROR);
+	}
+	env->win = mlx_new_window(env->mlx, WIDTH, HEIGHT, av[1]);
+	env->img = ft_new_image(env->mlx, WIDTH, HEIGHT);
+	return (SUCCESS);
 }
 
 int				main(int ac, char **av)
@@ -58,10 +72,13 @@ int				main(int ac, char **av)
 	t_color	*color;
 
 	color = NULL;
-	if (!(env = init_env(av, color)))
+	if (!(env = init_env(color)))
 		return (0);
-	ft_calculate(env);
+	if (!ft_parse_cmd(env, ac, av))
+		ft_exit(env);
+	ft_init_draw(env);
 	mlx_hook(env->win, 2, 0, &key_event_press, env);
+	// mlx_mouse_hook(env->win, &key_event_press, env);
 	mlx_loop(env->mlx);
 	return (0);
 }

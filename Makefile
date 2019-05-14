@@ -6,7 +6,7 @@
 #    By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/16 13:56:16 by lterrail          #+#    #+#              #
-#    Updated: 2018/10/26 06:15:34 by lterrail         ###   ########.fr        #
+#    Updated: 2019/05/14 12:01:27 by lterrail         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ SRC	=	main.c						\
 		new_image.c					\
 		draw_pixel.c				\
 		key.c						\
+		draw.c						\
+		color.c						\
 
 OBJ		= $(addprefix ./obj/,$(SRC:.c=.o))
 
