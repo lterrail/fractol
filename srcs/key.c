@@ -6,7 +6,7 @@
 /*   By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 06:03:45 by lterrail          #+#    #+#             */
-/*   Updated: 2019/05/16 17:35:07 by lterrail         ###   ########.fr       */
+/*   Updated: 2019/05/18 21:06:04 by lterrail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,27 +44,27 @@ static int	ft_key_color2(int keycode, t_env *env)
 {
 	if (keycode == KEY_COLOR4)
 	{
-		env->color->rr = 0;
-		env->color->gg = 123;
-		env->color->bb = 255;
+		env->color.rr = 0;
+		env->color.gg = 123;
+		env->color.bb = 255;
 	}
 	else if (keycode == KEY_COLOR5)
 	{
-		env->color->rr = 123;
-		env->color->gg = 0;
-		env->color->bb = 0;
+		env->color.rr = 123;
+		env->color.gg = 0;
+		env->color.bb = 0;
 	}
 	else if (keycode == KEY_COLOR6)
 	{
-		env->color->rr = 255;
-		env->color->gg = 255;
-		env->color->bb = 0;
+		env->color.rr = 255;
+		env->color.gg = 255;
+		env->color.bb = 0;
 	}
 	else if (keycode == KEY_COLOR9)
 	{
-		env->color->rr = 0;
-		env->color->gg = 0;
-		env->color->bb = 0;
+		env->color.rr = 0;
+		env->color.gg = 0;
+		env->color.bb = 0;
 	}
 	return (SUCCESS);
 }
@@ -73,27 +73,27 @@ static int	ft_key_color(int keycode, t_env *env)
 {
 	if (keycode == KEY_COLOR1)
 	{
-		env->color->rr = 0;
-		env->color->gg = 0;
-		env->color->bb = 255;
+		env->color.rr = 0;
+		env->color.gg = 0;
+		env->color.bb = 255;
 	}
 	else if (keycode == KEY_COLOR2)
 	{
-		env->color->rr = 255;
-		env->color->gg = 0;
-		env->color->bb = 0;
+		env->color.rr = 255;
+		env->color.gg = 0;
+		env->color.bb = 0;
 	}
 	else if (keycode == KEY_COLOR3)
 	{
-		env->color->rr = 122;
-		env->color->gg = 122;
-		env->color->bb = 0;
+		env->color.rr = 122;
+		env->color.gg = 122;
+		env->color.bb = 0;
 	}
 	else if (keycode == KEY_COLOR9)
 	{
-		env->color->rr = 0;
-		env->color->gg = 0;
-		env->color->bb = 0;
+		env->color.rr = 0;
+		env->color.gg = 0;
+		env->color.bb = 0;
 	}
 	return (ft_key_color2(keycode, env));
 }

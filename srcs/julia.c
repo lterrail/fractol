@@ -6,26 +6,23 @@
 /*   By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 17:21:14 by lterrail          #+#    #+#             */
-/*   Updated: 2019/05/16 17:37:50 by lterrail         ###   ########.fr       */
+/*   Updated: 2019/05/18 19:38:36 by lterrail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static void	ft_init_julia(t_env *env)
+void		ft_init_julia(t_env *env)
 {
-	if (!env->zoomx)
-	{
-		env->x1 = -1;
-		env->x2 = 1;
-		env->y1 = -1.2;
-		env->y2 = 1.2;
-		env->zoomx = WIDTH / (env->x2 - env->x1);
-		env->zoomy = HEIGHT / (env->y2 - env->y1);
-	}
+	env->x1 = -1;
+	env->x2 = 1;
+	env->y1 = -1.2;
+	env->y2 = 1.2;
+	env->zoomx = WIDTH / (env->x2 - env->x1);
+	env->zoomy = HEIGHT / (env->y2 - env->y1);
 }
 
-int		ft_event_julia(int x, int y, t_env *env)
+int			ft_event_julia(int x, int y, t_env *env)
 {
 	if (env->algo != JULIA || env->stop_mouse)
 		return (ERROR);

@@ -6,7 +6,7 @@
 /*   By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 05:07:25 by lterrail          #+#    #+#             */
-/*   Updated: 2019/05/18 17:20:38 by lterrail         ###   ########.fr       */
+/*   Updated: 2019/05/18 21:05:35 by lterrail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,24 @@
 
 void			ft_exit(t_env *env)
 {
-	free(env->color);
 	free(env);
 	exit(0);
 }
 
-static t_env	*init_env(t_color *color)
+static t_env	*init_env(void)
 {
 	t_env	*env;
 
 	env = (t_env *)malloc(sizeof(t_env));
 	if (!env)
 		return (NULL);
-	color = (t_color *)malloc(sizeof(t_color));
-	if (!color)
-		return (NULL);
 	env->algo = 0;
-	env->color = color;
-	env->color->r = 255;
-	env->color->g = 255;
-	env->color->b = 255;
-	env->color->rr = 0;
-	env->color->gg = 0;
-	env->color->bb = 0;
+	env->color.r = 255;
+	env->color.g = 255;
+	env->color.b = 255;
+	env->color.rr = 0;
+	env->color.gg = 0;
+	env->color.bb = 0;
 	env->i_max = 15;
 	env->zoom = 1;
 	env->zoomx = 0;
@@ -48,24 +43,25 @@ static t_env	*init_env(t_color *color)
 	return (env);
 }
 
-static int		ft_parse_cmd(t_env *env, int ac, char **av)
+static int		ft_parse_cmd(t_env *env,  char **av)
 {
-	if (ac != 2)
-	{
-		ft_putstr("Usage: ./fractol [mandelbrot/julia/burningship]\n");
-		return (ERROR);
-	}
 	if (!ft_strcmp(av[1], "mandelbrot"))
-		env->algo = MANDELBROT;
-	else if (!ft_strcmp(av[1], "julia"))
-		env->algo = JULIA;
-	else if (!ft_strcmp(av[1], "burningship"))
-		env->algo = BURNINGSHIP;
-	else
 	{
-		ft_putstr("Usage: ./fractol [mandelbrot/julia/burningship]\n");
-		return (ERROR);
+		ft_init_mandelbrot(env);
+		env->algo = MANDELBROT;
 	}
+	else if (!ft_strcmp(av[1], "julia"))
+	{
+		ft_init_julia(env);
+		env->algo = JULIA;
+	}
+	else if (!ft_strcmp(av[1], "burningship"))
+	{
+		ft_init_burningship(env);
+		env->algo = BURNINGSHIP;
+	}
+	else
+		return (ERROR);
 	env->win = mlx_new_window(env->mlx, WIDTH, HEIGHT, av[1]);
 	env->img = ft_new_image(env->mlx, WIDTH, HEIGHT);
 	return (SUCCESS);
@@ -74,18 +70,18 @@ static int		ft_parse_cmd(t_env *env, int ac, char **av)
 int				main(int ac, char **av)
 {
 	t_env		*env;
-	t_color		*color;
 
-	color = NULL;
-	if (!(env = init_env(color)))
+	if (!(env = init_env()))
 		return (0);
-	if (!ft_parse_cmd(env, ac, av))
+	if (ac != 2 || !ft_parse_cmd(env,av))
+	{
+		ft_putstr("Usage: ./fractol [mandelbrot/julia/burningship]\n");
 		ft_exit(env);
+	}
 	ft_init_draw(env);
 	mlx_key_hook(env->win, ft_event_key, env);
 	mlx_hook(env->win, 6, (1L << 6), ft_event_julia, env);
 	mlx_mouse_hook(env->win, ft_event_mouse, env);
-	// mlx_loop(env->mlx);
-	pthread_exit(NULL);
+	mlx_loop(env->mlx);
 	return (0);
 }

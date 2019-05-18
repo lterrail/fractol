@@ -6,7 +6,7 @@
 /*   By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/28 10:36:57 by lterrail          #+#    #+#             */
-/*   Updated: 2019/05/18 17:28:35 by lterrail         ###   ########.fr       */
+/*   Updated: 2019/05/18 20:52:08 by lterrail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,12 @@
 
 static void		*ft_onethread(void *env)
 {
-	ft_init_draw(env);
-	pthread_exit(NULL);
-}
-
-static void		ft_multithread(t_env *env)
-{
-	int			i;
-
-	i = 0;
-	while (i < THREADS)
-	{
-		pthread_create(&env->thread[i], NULL, ft_onethread, env);
-		i++;
-	}
-	i = 0;
-	while (i < THREADS)
-	{
-		pthread_join(env->thread[i], NULL);
-		i++;
-	}
-}
-
-void			*ft_init_draw(t_env *env)
-{
+	t_env	*v;
 	t_pt pt;
 
+	v = (t_env *)env;
 	pt.i = -1;
-	pt.x = -1;
+	pt.x = -1 + (WIDTH / THREADS) * (v->id_thread);
 	pt.y = -1;
 	pt.Z0r = 0;
 	pt.Z0i = 0;
@@ -49,13 +27,39 @@ void			*ft_init_draw(t_env *env)
 	pt.Zi = 0;
 	pt.Zrcalc = 0;
 	pt.Zicalc = 0;
-	ft_multithread(env);
-	if (env->algo == MANDELBROT)
-		ft_draw_mandelbrot(env, pt);
-	else if (env->algo == JULIA)
-		ft_draw_julia(env, pt);
-	else if (env->algo == BURNINGSHIP)
-		ft_draw_burningship(env, pt);
+	if (v->algo == MANDELBROT)
+		ft_draw_mandelbrot(v, pt);
+	else if (v->algo == JULIA)
+		ft_draw_julia(v, pt);
+	else if (v->algo == BURNINGSHIP)
+		ft_draw_burningship(v, pt);
+	pthread_exit(NULL);
+}
+
+static void		ft_multithread(t_env *env)
+{
+	int			i;
+	t_env		tab[THREADS];
+	pthread_t	thread[THREADS];
+
+	i = 0;
+	while (i < THREADS)
+	{
+		ft_memcpy((void*)&tab[i], (void*)env, sizeof(t_env));
+		tab[i].id_thread = i;
+		pthread_create(&thread[i], NULL, ft_onethread, &tab[i]);
+		i++;
+	}
+	i = 0;
+	while (i < THREADS)
+	{
+		pthread_join(thread[i], NULL);
+		i++;
+	}
 	mlx_put_image_to_window(env->mlx, env->win, env->img->img, 0, 0);
-	return (NULL);
+}
+
+void			ft_init_draw(t_env *env)
+{
+	ft_multithread(env);
 }

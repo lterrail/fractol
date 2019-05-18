@@ -6,23 +6,20 @@
 /*   By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 17:21:05 by lterrail          #+#    #+#             */
-/*   Updated: 2019/05/16 16:27:12 by lterrail         ###   ########.fr       */
+/*   Updated: 2019/05/18 19:38:25 by lterrail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static void	ft_init_burningship(t_env *env)
+void		ft_init_burningship(t_env *env)
 {
-	if (!env->zoomx)
-	{
-		env->x1 = -2.1;
-		env->x2 = 0.6;
-		env->y1 = -1.2;
-		env->y2 = 1.2;
-		env->zoomx = WIDTH / (env->x2 - env->x1);
-		env->zoomy = HEIGHT / (env->y2 - env->y1);
-	}
+	env->x1 = -2.1;
+	env->x2 = 0.6;
+	env->y1 = -1.2;
+	env->y2 = 1.2;
+	env->zoomx = WIDTH / (env->x2 - env->x1);
+	env->zoomy = HEIGHT / (env->y2 - env->y1);
 }
 
 void		ft_draw_burningship(t_env *env, t_pt pt)
@@ -30,7 +27,7 @@ void		ft_draw_burningship(t_env *env, t_pt pt)
 	float distance;
 
 	ft_init_burningship(env);
-	while (++pt.x < WIDTH)
+	while (++pt.x < WIDTH / THREADS * (env->id_thread + 1))
 	{
 		pt.y = 0;
 		while (++pt.y < HEIGHT)
