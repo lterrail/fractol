@@ -6,7 +6,7 @@
 #    By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/16 13:56:16 by lterrail          #+#    #+#              #
-#    Updated: 2019/05/14 12:01:27 by lterrail         ###   ########.fr        #
+#    Updated: 2019/05/18 16:35:36 by lterrail         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,15 +19,21 @@ SRC	=	main.c						\
 		key.c						\
 		draw.c						\
 		color.c						\
+		julia.c						\
+		mandelbrot.c				\
+		burningship.c				\
+		mouse.c						\
 
 OBJ		= $(addprefix ./obj/,$(SRC:.c=.o))
 
 CC		= gcc
+X11DIR = -I./Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/
+
 CFLAGS	= -Wall -Wextra -Werror
 
 LIBFTA	= ./libft/libft.a
 LIBINCL = -I./libft/includes
-LIBLINK	= -L./libft -lft
+LIBLINK	= -L./libft -lft -l pthread
 
 MLXA = ./miniLibX/mlx.a
 MLXINCL = -I./miniLibX
@@ -39,7 +45,7 @@ obj:
 	mkdir -p ./obj/
 
 ./obj/%.o:./srcs/%.c
-	$(CC) $(CFLAGS) $(LIBINCL) $(MLXINCL) -Iincludes -o $@ -c $<
+	$(CC) $(CFLAGS) $(LIBINCL) $(MLXINCL) $(X11DIR) -Iincludes -o $@ -c $<
 
 $(LIBFTA):
 	make -C ./libft

@@ -6,26 +6,36 @@
 /*   By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 12:00:52 by lterrail          #+#    #+#             */
-/*   Updated: 2019/05/14 14:23:01 by lterrail         ###   ########.fr       */
+/*   Updated: 2019/05/16 17:30:01 by lterrail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void		ft_color(t_env *env, int distance, int x, int y)
+void		ft_color(t_env *env, t_pt pt)
 {
-	if (distance > 4)
+	if (pt.i + 1 == env->i_max)
 	{
-		env->color->r = 255;
-		env->color->g = 255;
-		env->color->b = 255;
-		draw_pixel(env->img, x, y, env->color);
+		env->color->r = 0;
+		env->color->g = 0;
+		env->color->b = 0;
+		draw_pixel(env->img, pt.x, pt.y, env->color);
+	}
+	else if (!env->color->rr && !env->color->bb && !env->color->bb)
+	{
+		env->color->r = (pt.i + env->Z0rj + env->Z0ij) * 10;
+		env->color->g = (pt.i + env->Z0rj + env->Z0ij) * 50;
+		env->color->b = (pt.i + env->Z0rj + env->Z0ij) * 60;
+		draw_pixel(env->img, pt.x, pt.y, env->color);
 	}
 	else
 	{
-		env->color->r = 100;
-		env->color->g = 100;
-		env->color->b = 100;
-		draw_pixel(env->img, x, y, env->color);
+		env->color->r = (pt.i + env->Z0rj
+			+ env->Z0ij + env->color->rr) * 10;
+		env->color->g = (pt.i + env->Z0rj
+			+ env->Z0ij + env->color->gg) * 50;
+		env->color->b = (pt.i + env->Z0rj
+			+ env->Z0ij + env->color->bb) * 60;
+		draw_pixel(env->img, pt.x, pt.y, env->color);
 	}
 }
