@@ -6,7 +6,7 @@
 /*   By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 17:21:22 by lterrail          #+#    #+#             */
-/*   Updated: 2019/05/18 20:57:54 by lterrail         ###   ########.fr       */
+/*   Updated: 2019/05/19 12:27:29 by lterrail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void		ft_draw_mandelbrot(t_env *env, t_pt pt)
 
 	while (++pt.x < (WIDTH / THREADS) * (env->id_thread + 1))
 	{
-		// printf("pt.x max%d, %d\n", (WIDTH / THREADS) * (env->id_thread + 1),env->id_thread);
 		pt.y = 0;
 		while (++pt.y < HEIGHT)
 		{

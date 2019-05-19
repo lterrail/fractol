@@ -6,7 +6,7 @@
 /*   By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 17:21:05 by lterrail          #+#    #+#             */
-/*   Updated: 2019/05/18 19:38:25 by lterrail         ###   ########.fr       */
+/*   Updated: 2019/05/19 12:38:24 by lterrail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void		ft_draw_burningship(t_env *env, t_pt pt)
 {
 	float distance;
 
-	ft_init_burningship(env);
 	while (++pt.x < WIDTH / THREADS * (env->id_thread + 1))
 	{
 		pt.y = 0;

@@ -6,7 +6,7 @@
 #    By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/16 13:56:16 by lterrail          #+#    #+#              #
-#    Updated: 2019/05/18 16:35:36 by lterrail         ###   ########.fr        #
+#    Updated: 2019/05/19 14:52:43 by lterrail         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC	=	main.c						\
 		mandelbrot.c				\
 		burningship.c				\
 		mouse.c						\
+		display_precision.c			\
 
 OBJ		= $(addprefix ./obj/,$(SRC:.c=.o))
 

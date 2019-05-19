@@ -6,7 +6,7 @@
 /*   By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 12:00:52 by lterrail          #+#    #+#             */
-/*   Updated: 2019/05/18 21:10:22 by lterrail         ###   ########.fr       */
+/*   Updated: 2019/05/19 14:59:33 by lterrail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,16 @@ void		ft_color(t_env *env, t_pt pt)
 	}
 	else if (!env->color.rr && !env->color.bb && !env->color.bb)
 	{
-		env->color.r = pt.i * 10;
-		env->color.g = pt.i * 50;
-		env->color.b = pt.i * 60;
+		env->color.r = pt.i * 255 / env->i_max;
+		env->color.g = 0;
+		env->color.b = 20;
 		draw_pixel(env->img, pt.x, pt.y, env->color);
 	}
 	else
 	{
-		env->color.r = (pt.i + env->Z0rj
-			+ env->Z0ij + env->color.rr) * 10;
-		env->color.g = (pt.i + env->Z0rj
-			+ env->Z0ij + env->color.gg) * 50;
-		env->color.b = (pt.i + env->Z0rj
-			+ env->Z0ij + env->color.bb) * 60;
+		env->color.r = (pt.i + env->color.rr) * 60;
+		env->color.g = (pt.i + env->color.gg) * 20;
+		env->color.b = (pt.i + env->color.bb) * 10;
 		draw_pixel(env->img, pt.x, pt.y, env->color);
 	}
 }

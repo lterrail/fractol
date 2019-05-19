@@ -6,7 +6,7 @@
 /*   By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 05:07:25 by lterrail          #+#    #+#             */
-/*   Updated: 2019/05/18 21:05:35 by lterrail         ###   ########.fr       */
+/*   Updated: 2019/05/19 14:49:43 by lterrail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void			ft_exit(t_env *env)
 {
+	if (env->img)
+		free(env->img);
 	free(env);
 	exit(0);
 }
@@ -26,13 +28,10 @@ static t_env	*init_env(void)
 	if (!env)
 		return (NULL);
 	env->algo = 0;
-	env->color.r = 255;
-	env->color.g = 255;
-	env->color.b = 255;
 	env->color.rr = 0;
 	env->color.gg = 0;
 	env->color.bb = 0;
-	env->i_max = 15;
+	env->i_max = 20;
 	env->zoom = 1;
 	env->zoomx = 0;
 	env->zoomy = 0;
@@ -43,7 +42,7 @@ static t_env	*init_env(void)
 	return (env);
 }
 
-static int		ft_parse_cmd(t_env *env,  char **av)
+static int		ft_parse_cmd(t_env *env, char **av)
 {
 	if (!ft_strcmp(av[1], "mandelbrot"))
 	{
@@ -72,8 +71,8 @@ int				main(int ac, char **av)
 	t_env		*env;
 
 	if (!(env = init_env()))
-		return (0);
-	if (ac != 2 || !ft_parse_cmd(env,av))
+		return (ERROR);
+	if (ac != 2 || !ft_parse_cmd(env, av))
 	{
 		ft_putstr("Usage: ./fractol [mandelbrot/julia/burningship]\n");
 		ft_exit(env);
@@ -83,5 +82,5 @@ int				main(int ac, char **av)
 	mlx_hook(env->win, 6, (1L << 6), ft_event_julia, env);
 	mlx_mouse_hook(env->win, ft_event_mouse, env);
 	mlx_loop(env->mlx);
-	return (0);
+	return (SUCCESS);
 }

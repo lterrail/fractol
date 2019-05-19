@@ -6,7 +6,7 @@
 /*   By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 05:21:59 by lterrail          #+#    #+#             */
-/*   Updated: 2019/05/18 21:02:00 by lterrail         ###   ########.fr       */
+/*   Updated: 2019/05/19 15:10:54 by lterrail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <mlx.h>
 # include <math.h>
 # include "libft.h"
-# include <pthread.h>
 
 # define WIDTH 800
 # define HEIGHT 800
@@ -24,11 +23,13 @@
 # define SUCCESS		1
 # define ERROR			0
 # define THREADS		4
+# define ZOOM			1.1
+# define I_MAX			1
 
 # define KEY_QUIT		53
 # define MOUSE_ZOOM_IN	4
 # define MOUSE_ZOOM_OUT	5
-# define KEY_MOUSE_STOP 71
+# define KEY_RESET		71
 # define KEY_ZOOM_IN	69
 # define KEY_ZOOM_OUT	78
 # define KEY_LEFT		123
@@ -46,6 +47,7 @@
 # define KEY_COLOR9		92
 # define KEY_Q			12
 # define KEY_W			13
+# define KEY_STOP		1
 
 # define MANDELBROT		10000
 # define JULIA			20000
@@ -105,22 +107,26 @@ typedef struct		s_env
 	int				flag;
 }					t_env;
 
-t_img				*ft_new_image(void *mlx, int width, int height);
-int					ft_clear_img(t_img *img);
-void				draw_pixel(t_img *img, int x, int y, t_color color);
-int					ft_event_key(int keycode, t_env *env);
-int					ft_event_mouse(int keycode, int x, int y, t_env *env);
-void				ft_draw_mandelbrot(t_env *env, t_pt pt);
-void				ft_draw_burningship(t_env *env, t_pt pt);
-void				ft_draw_julia(t_env *env, t_pt pt);
 void				ft_init_draw(t_env *env);
-void				ft_display_usage(t_env *env);
-void				ft_color(t_env *env, t_pt pt);
-int					ft_event_julia(int x, int y, t_env *env);
-void				ft_exit(t_env *env);
+void				draw_pixel(t_img *img, int x, int y, t_color color);
 
 void				ft_init_mandelbrot(t_env *env);
 void				ft_init_julia(t_env *env);
 void				ft_init_burningship(t_env *env);
+
+void				ft_draw_mandelbrot(t_env *env, t_pt pt);
+void				ft_draw_burningship(t_env *env, t_pt pt);
+void				ft_draw_julia(t_env *env, t_pt pt);
+
+int					ft_event_julia(int x, int y, t_env *env);
+int					ft_event_mouse(int keycode, int x, int y, t_env *env);
+int					ft_event_key(int keycode, t_env *env);
+
+int					ft_clear_img(t_img *img);
+t_img				*ft_new_image(void *mlx, int width, int height);
+
+void				ft_exit(t_env *env);
+void				ft_color(t_env *env, t_pt pt);
+void				ft_display_precision(t_env *env);
 
 #endif

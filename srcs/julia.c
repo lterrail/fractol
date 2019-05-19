@@ -6,7 +6,7 @@
 /*   By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 17:21:14 by lterrail          #+#    #+#             */
-/*   Updated: 2019/05/18 19:38:36 by lterrail         ###   ########.fr       */
+/*   Updated: 2019/05/19 13:04:57 by lterrail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int			ft_event_julia(int x, int y, t_env *env)
 {
 	if (env->algo != JULIA || env->stop_mouse)
 		return (ERROR);
-	env->Z0rj = 0.7 * x / 500;
-	env->Z0ij = 0.5 * y / 500;
+	env->Z0rj = 0.7 * x / 350;
+	env->Z0ij = 0.5 * y / 350;
 	ft_init_draw(env);
 	return (SUCCESS);
 }
@@ -36,7 +36,6 @@ void		ft_draw_julia(t_env *env, t_pt pt)
 {
 	float distance;
 
-	ft_init_julia(env);
 	while (++pt.x < WIDTH)
 	{
 		pt.y = 0;
