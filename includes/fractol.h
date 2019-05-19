@@ -6,7 +6,7 @@
 /*   By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 05:21:59 by lterrail          #+#    #+#             */
-/*   Updated: 2019/05/19 15:10:54 by lterrail         ###   ########.fr       */
+/*   Updated: 2019/05/19 15:12:18 by lterrail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ typedef struct		s_pt
 {
 	int				x;
 	int				y;
-	double			Z0r;
-	double			Z0i;
-	double			Zr;
-	double			Zi;
-	double			Zrcalc;
-	double			Zicalc;
+	double			zrstart;
+	double			zistart;
+	double			zr;
+	double			zi;
+	double			zrcalc;
+	double			zicalc;
 	int				i;
 }					t_pt;
 
@@ -89,8 +89,8 @@ typedef struct		s_env
 {
 	void			*win;
 	void			*mlx;
-	double			Z0rj;
-	double			Z0ij;
+	double			zrstart;
+	double			zistart;
 	double			zoom;
 	double			zoomx;
 	double			zoomy;

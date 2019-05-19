@@ -6,7 +6,7 @@
 /*   By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/28 10:36:57 by lterrail          #+#    #+#             */
-/*   Updated: 2019/05/19 14:53:39 by lterrail         ###   ########.fr       */
+/*   Updated: 2019/05/19 15:16:39 by lterrail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ static t_pt		init_value_pt(t_env *v)
 	pt.i = -1;
 	pt.x = -1 + (WIDTH / THREADS) * (v->id_thread);
 	pt.y = -1;
-	pt.Z0r = 0;
-	pt.Z0i = 0;
-	pt.Zr = 0;
-	pt.Zi = 0;
-	pt.Zrcalc = 0;
-	pt.Zicalc = 0;
+	pt.zrstart = 0;
+	pt.zistart = 0;
+	pt.zr = 0;
+	pt.zi = 0;
+	pt.zrcalc = 0;
+	pt.zicalc = 0;
 	return (pt);
 }
 

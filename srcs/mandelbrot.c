@@ -6,7 +6,7 @@
 /*   By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 17:21:22 by lterrail          #+#    #+#             */
-/*   Updated: 2019/05/19 12:27:29 by lterrail         ###   ########.fr       */
+/*   Updated: 2019/05/19 15:16:55 by lterrail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,19 @@ void		ft_draw_mandelbrot(t_env *env, t_pt pt)
 		pt.y = 0;
 		while (++pt.y < HEIGHT)
 		{
-			pt.Z0r = pt.x / env->zoomx + env->x1;
-			pt.Z0i = pt.y / env->zoomy + env->y1;
-			pt.Zr = pt.Z0r;
-			pt.Zi = pt.Z0i;
+			pt.zrstart = pt.x / env->zoomx + env->x1;
+			pt.zistart = pt.y / env->zoomy + env->y1;
+			pt.zr = pt.zrstart;
+			pt.zi = pt.zistart;
 			pt.i = -1;
 			distance = 0;
 			while (distance < 4 && ++pt.i < env->i_max)
 			{
-				pt.Zrcalc = pt.Zr * pt.Zr - pt.Zi * pt.Zi + pt.Z0r;
-				pt.Zicalc = 2 * pt.Zr * pt.Zi + pt.Z0i;
-				pt.Zr = pt.Zrcalc;
-				pt.Zi = pt.Zicalc;
-				distance = pt.Zr * pt.Zr + pt.Zi * pt.Zi;
+				pt.zrcalc = pt.zr * pt.zr - pt.zi * pt.zi + pt.zrstart;
+				pt.zicalc = 2 * pt.zr * pt.zi + pt.zistart;
+				pt.zr = pt.zrcalc;
+				pt.zi = pt.zicalc;
+				distance = pt.zr * pt.zr + pt.zi * pt.zi;
 				ft_color(env, pt);
 			}
 		}

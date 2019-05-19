@@ -6,7 +6,7 @@
 /*   By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 06:03:45 by lterrail          #+#    #+#             */
-/*   Updated: 2019/05/19 15:06:33 by lterrail         ###   ########.fr       */
+/*   Updated: 2019/05/19 15:15:48 by lterrail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	ft_key_reset(t_env *env)
 	env->zoom = 1;
 	env->zoomx = 0;
 	env->zoomy = 0;
-	env->Z0rj = 0.285;
-	env->Z0ij = 0.01;
+	env->zrstart = 0.285;
+	env->zistart = 0.01;
 	env->stop_mouse = 0;
 	if (env->algo == MANDELBROT)
 		ft_init_mandelbrot(env);

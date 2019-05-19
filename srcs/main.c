@@ -6,7 +6,7 @@
 /*   By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 05:07:25 by lterrail          #+#    #+#             */
-/*   Updated: 2019/05/19 14:49:43 by lterrail         ###   ########.fr       */
+/*   Updated: 2019/05/19 15:16:00 by lterrail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static t_env	*init_env(void)
 	env->zoom = 1;
 	env->zoomx = 0;
 	env->zoomy = 0;
-	env->Z0rj = 0.285;
-	env->Z0ij = 0.01;
+	env->zrstart = 0.285;
+	env->zistart = 0.01;
 	env->stop_mouse = 0;
 	env->mlx = mlx_init();
 	return (env);

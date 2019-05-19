@@ -6,7 +6,7 @@
 /*   By: lterrail <lterrail@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 17:21:14 by lterrail          #+#    #+#             */
-/*   Updated: 2019/05/19 13:04:57 by lterrail         ###   ########.fr       */
+/*   Updated: 2019/05/19 15:18:47 by lterrail         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int			ft_event_julia(int x, int y, t_env *env)
 {
 	if (env->algo != JULIA || env->stop_mouse)
 		return (ERROR);
-	env->Z0rj = 0.7 * x / 350;
-	env->Z0ij = 0.5 * y / 350;
+	env->zrstart = 0.7 * x / 350;
+	env->zistart = 0.5 * y / 350;
 	ft_init_draw(env);
 	return (SUCCESS);
 }
@@ -36,22 +36,24 @@ void		ft_draw_julia(t_env *env, t_pt pt)
 {
 	float distance;
 
-	while (++pt.x < WIDTH)
+	while (++pt.x < (WIDTH / THREADS) * (env->id_thread + 1))
 	{
 		pt.y = 0;
 		while (++pt.y < HEIGHT)
 		{
-			pt.Zr = pt.x / env->zoomx + env->x1;
-			pt.Zi = pt.y / env->zoomy + env->y1;
+			pt.zrstart = pt.x / env->zoomx + env->x1;
+			pt.zistart = pt.y / env->zoomy + env->y1;
+			pt.zr = pt.zrstart;
+			pt.zi = pt.zistart;
 			pt.i = -1;
 			distance = 0;
 			while (distance < 4 && ++pt.i < env->i_max)
 			{
-				pt.Zrcalc = pt.Zr * pt.Zr - pt.Zi * pt.Zi + env->Z0rj;
-				pt.Zicalc = 2 * pt.Zr * pt.Zi + env->Z0ij;
-				pt.Zr = pt.Zrcalc;
-				pt.Zi = pt.Zicalc;
-				distance = pt.Zr * pt.Zr + pt.Zi * pt.Zi;
+				pt.zrcalc = pt.zr * pt.zr - pt.zi * pt.zi + env->zrstart;
+				pt.zicalc = 2 * pt.zr * pt.zi + env->zistart;
+				pt.zr = pt.zrcalc;
+				pt.zi = pt.zicalc;
+				distance = pt.zr * pt.zr + pt.zi * pt.zi;
 				ft_color(env, pt);
 			}
 		}
